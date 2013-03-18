@@ -55,7 +55,6 @@ class EntriesController < ApplicationController
   #GET /entries/new
   def new
     @entry = Entry.new
-    @white_cards = WhiteCard.all()
     # BlackCard.all_non_multi()
     respond_to do |format|
       format.html # new.html.erb
@@ -65,7 +64,7 @@ class EntriesController < ApplicationController
 
   #POST /entries/create
   def create
-    @entry = Entry.new
+    @entry = Entry.new(params[:entry].merge(:playa_id => 1))
 
     respond_to do |format|
       if @entry.save
