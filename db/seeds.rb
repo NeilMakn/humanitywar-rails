@@ -782,7 +782,7 @@ BlackCard.create!(:text => "Why am I sticky? ________", :blanks => 1)
 BlackCard.create!(:text => "Why can't I sleep at night? ________", :blanks => 1)
 BlackCard.create!(:text => "Why do I hurt all over? ________", :blanks => 1)
 
-p = Playa.create!(:email => 'blank@example.com')
+p = Playa.create!(:user => 'blank@example.com')
 
 # p = Playa.first
 b_length = BlackCard.count
@@ -791,6 +791,8 @@ w_length = WhiteCard.count
   e = Entry.new
   e.playa_id = p.id
   e.black_card_id = rand(b_length) + 1
-  e.white_card_id = rand(w_length) + 1
+  BlackCard.find(e.black_card_id).blanks.times do |j|
+      e.white_cards << WhiteCard.find(rand(w_length) + 1)
+  end
   e.save!
 end
